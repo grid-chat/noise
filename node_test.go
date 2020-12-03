@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/goleak"
 )
