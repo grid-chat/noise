@@ -7,8 +7,7 @@ import (
 	"go.uber.org/zap"
 )
 
-// NodeOption represents a functional option that may be passed to NewNode for instantiating a new node instance
-// with configured values.
+// NodeOption represents a functional option that may be passed to NewNode for instantiating a new node instance with configured values
 type NodeOption func(n *Node)
 
 // WithNodeMaxDialAttempts sets the max number of attempts a connection is dialed before it is determined to have
