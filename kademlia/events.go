@@ -2,9 +2,7 @@ package kademlia
 
 import "github.com/grid-chat/noise"
 
-// Events comprise of callbacks that are to be called upon the encountering of various events as a node follows
-// the Kademlia protocol. An Events declaration may be registered to a Protocol upon instantiation through calling
-// New with the WithProtocolEvents functional option.
+// Events comprise of callbacks that are to be called upon the encountering of various events as a node follows the Kademlia protocol. An Events declaration may be registered to a Protocol upon instantiation through calling New with the WithProtocolEvents functional option.
 type Events struct {
 	// OnPeerAdmitted is called when a peer is admitted to being inserted into your nodes' routing table.
 	OnPeerAdmitted func(id noise.ID)
