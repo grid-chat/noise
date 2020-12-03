@@ -1,8 +1,9 @@
 package kademlia
 
 import (
-	"go.uber.org/zap"
 	"time"
+
+	"go.uber.org/zap"
 )
 
 // ProtocolOption represents a functional option which may be passed to New to configure a Protocol.

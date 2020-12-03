@@ -1,12 +1,13 @@
 package noise
 
 import (
-	"github.com/stretchr/testify/assert"
-	"go.uber.org/zap"
 	"net"
 	"testing"
 	"testing/quick"
 	"time"
+
+	"github.com/stretchr/testify/assert"
+	"go.uber.org/zap"
 )
 
 func TestNodeOptions(t *testing.T) {

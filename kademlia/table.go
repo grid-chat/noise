@@ -3,8 +3,9 @@ package kademlia
 import (
 	"container/list"
 	"fmt"
-	"github.com/perlin-network/noise"
 	"sync"
+
+	"github.com/perlin-network/noise"
 )
 
 // Table represents a Kademlia routing table.

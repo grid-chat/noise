@@ -1,13 +1,10 @@
-module github.com/grid-chat/noise
+module github.com/perlin-network/noise
 
 go 1.15
-
-replace github.com/perlin-network/noise v1.1.3 => github.com/grid-chat/noise v1.1.3
 
 require (
 	github.com/VictoriaMetrics/fastcache v1.5.7
 	github.com/oasisprotocol/ed25519 v0.0.0-20201103162138-a1dadbe24dd5
-	github.com/perlin-network/noise v1.1.3
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.6.1
 	go.uber.org/atomic v1.7.0

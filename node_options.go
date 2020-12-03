@@ -1,9 +1,10 @@
 package noise
 
 import (
-	"go.uber.org/zap"
 	"net"
 	"time"
+
+	"go.uber.org/zap"
 )
 
 // NodeOption represents a functional option that may be passed to NewNode for instantiating a new node instance

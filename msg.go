@@ -3,9 +3,10 @@ package noise
 import (
 	"encoding/binary"
 	"errors"
+	"io"
+
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
-	"io"
 )
 
 type message struct {

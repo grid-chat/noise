@@ -2,13 +2,14 @@ package gossip_test
 
 import (
 	"context"
+	"sync"
+	"testing"
+
 	"github.com/perlin-network/noise"
 	"github.com/perlin-network/noise/gossip"
 	"github.com/perlin-network/noise/kademlia"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/goleak"
-	"sync"
-	"testing"
 )
 
 func TestGossip(t *testing.T) {

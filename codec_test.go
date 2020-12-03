@@ -2,8 +2,9 @@ package noise
 
 import (
 	"encoding/binary"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 type test2 struct {

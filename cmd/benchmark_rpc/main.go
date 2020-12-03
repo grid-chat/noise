@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/perlin-network/noise"
 	"runtime"
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/perlin-network/noise"
 )
 
 func check(err error) {

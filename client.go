@@ -9,11 +9,12 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"go.uber.org/zap"
 	"io"
 	"net"
 	"sync"
 	"time"
+
+	"go.uber.org/zap"
 )
 
 type clientSide bool

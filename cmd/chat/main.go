@@ -5,14 +5,15 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/perlin-network/noise"
-	"github.com/perlin-network/noise/kademlia"
-	"github.com/spf13/pflag"
 	"io"
 	"os"
 	"os/signal"
 	"strings"
 	"time"
+
+	"github.com/perlin-network/noise"
+	"github.com/perlin-network/noise/kademlia"
+	"github.com/spf13/pflag"
 )
 
 var (

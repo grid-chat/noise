@@ -1,11 +1,12 @@
 package main
 
 import (
+	"os"
+	"os/signal"
+
 	"github.com/perlin-network/noise"
 	"github.com/perlin-network/noise/kademlia"
 	"go.uber.org/zap"
-	"os"
-	"os/signal"
 )
 
 func main() {

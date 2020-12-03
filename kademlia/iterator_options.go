@@ -1,8 +1,9 @@
 package kademlia
 
 import (
-	"go.uber.org/zap"
 	"time"
+
+	"go.uber.org/zap"
 )
 
 // IteratorOption represents a functional option which may be passed to NewIterator, or to (*Protocol).Find or
