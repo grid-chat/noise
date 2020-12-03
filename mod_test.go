@@ -3,10 +3,11 @@ package noise_test
 import (
 	"encoding/hex"
 	"encoding/json"
-	"github.com/oasislabs/ed25519"
+	"testing"
+
+	"github.com/oasisprotocol/ed25519"
 	"github.com/perlin-network/noise"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestMarshalJSON(t *testing.T) {

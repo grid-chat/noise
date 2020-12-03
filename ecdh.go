@@ -4,9 +4,10 @@ import (
 	"crypto/ed25519"
 	"crypto/sha512"
 	"fmt"
-	"github.com/oasislabs/ed25519/extra/x25519"
-	"golang.org/x/crypto/curve25519"
 	"math/big"
+
+	"github.com/oasisprotocol/ed25519/extra/x25519"
+	"golang.org/x/crypto/curve25519"
 )
 
 var curve25519P, _ = new(big.Int).SetString("57896044618658097711785492504343953926634992332820282019728792003956564819949", 10)

@@ -4,10 +4,11 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/oasislabs/ed25519"
 	"io"
 	"reflect"
 	"unsafe"
+
+	"github.com/oasisprotocol/ed25519"
 )
 
 const (
