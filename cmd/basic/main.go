@@ -4,8 +4,8 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/perlin-network/noise"
-	"github.com/perlin-network/noise/kademlia"
+	"github.com/grid-chat/noise"
+	"github.com/grid-chat/noise/kademlia"
 	"go.uber.org/zap"
 )
 

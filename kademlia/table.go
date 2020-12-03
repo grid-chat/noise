@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 )
 
 // Table represents a Kademlia routing table.

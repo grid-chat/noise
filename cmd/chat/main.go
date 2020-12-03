@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/perlin-network/noise"
-	"github.com/perlin-network/noise/kademlia"
+	"github.com/grid-chat/noise"
+	"github.com/grid-chat/noise/kademlia"
 	"github.com/spf13/pflag"
 )
 

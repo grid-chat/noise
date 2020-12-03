@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/oasisprotocol/ed25519"
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 	"github.com/stretchr/testify/assert"
 )
 

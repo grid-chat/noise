@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 )
 
 // ChatMessage is an example struct that is registered on example nodes, and serialized/deserialized on-the-fly.

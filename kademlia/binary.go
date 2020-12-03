@@ -5,7 +5,7 @@ import (
 	"math/bits"
 	"sort"
 
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 )
 
 // XOR allocates a new byte slice with the computed result of XOR(a, b).

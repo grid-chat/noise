@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 )
 
 // This example demonstrates how to send and receive raw bytes across peers, how to listen for incoming peers, and

@@ -7,8 +7,8 @@ import (
 	"sync"
 
 	"github.com/VictoriaMetrics/fastcache"
-	"github.com/perlin-network/noise"
-	"github.com/perlin-network/noise/kademlia"
+	"github.com/grid-chat/noise"
+	"github.com/grid-chat/noise/kademlia"
 )
 
 // Protocol implements a simple gossiping protocol that avoids resending messages to peers that it already believes

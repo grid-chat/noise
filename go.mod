@@ -1,4 +1,4 @@
-module github.com/perlin-network/noise
+module github.com/grid-chat/noise
 
 go 1.15
 
@@ -8,6 +8,7 @@ require (
 	github.com/golang/snappy v0.0.2 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/oasisprotocol/ed25519 v0.0.0-20201103162138-a1dadbe24dd5
+	github.com/perlin-network/noise v1.1.3
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/stretchr/testify v1.6.1

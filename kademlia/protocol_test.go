@@ -5,8 +5,8 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/perlin-network/noise"
-	"github.com/perlin-network/noise/kademlia"
+	"github.com/grid-chat/noise"
+	"github.com/grid-chat/noise/kademlia"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/goleak"
 )

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 )
 
 // Ping represents an empty ping message.

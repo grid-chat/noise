@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 	"go.uber.org/zap"
 )
 

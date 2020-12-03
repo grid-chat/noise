@@ -7,7 +7,7 @@ import (
 	"net"
 	"testing"
 
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 	"github.com/stretchr/testify/assert"
 )
 

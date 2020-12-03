@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 )
 
 func check(err error) {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/perlin-network/noise"
+	"github.com/grid-chat/noise"
 )
 
 // This example demonstrates sending registered serialized Go types as requests, decoding registered serialized

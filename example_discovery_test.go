@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/perlin-network/noise"
-	"github.com/perlin-network/noise/kademlia"
+	"github.com/grid-chat/noise"
+	"github.com/grid-chat/noise/kademlia"
 )
 
 // This example demonstrates how to use Kademlia to have three peers Alice, Charlie and bob discover
