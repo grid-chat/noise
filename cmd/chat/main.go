@@ -67,19 +67,19 @@ func main() {
 	node.Handle(handle)
 
 	// Instantiate Kademlia.
-	events := kademlia.Events{
-		OnPeerAdmitted: func(id noise.ID) {
-			fmt.Printf("Learned about a new peer %s(%s).\n", id.Address, id.ID.String()[:printedLength])
-		},
-		OnPeerEvicted: func(id noise.ID) {
-			fmt.Printf("Forgotten a peer %s(%s).\n", id.Address, id.ID.String()[:printedLength])
-		},
+	OnPeerAdmitted := func(id noise.ID) {
+		fmt.Printf("Learned about a new peer %s(%s).\n", id.Address, id.ID.String()[:printedLength])
+	}
+	OnPeerEvicted := func(id noise.ID) {
+		fmt.Printf("Forgotten a peer %s(%s).\n", id.Address, id.ID.String()[:printedLength])
 	}
 
-	overlay := kademlia.New(kademlia.WithProtocolEvents(events))
-
+	overlay := kademlia.New()
 	// Bind Kademlia to the node.
 	node.Bind(overlay.Protocol())
+	//Bind events
+	node.On("OnPeerAdmitted", OnPeerAdmitted)
+	node.On("OnPeerEvicted", OnPeerEvicted)
 
 	// Have the node start listening for new peers.
 	check(node.Listen())

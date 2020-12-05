@@ -6,6 +6,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/CHH/eventemitter"
 	"github.com/VictoriaMetrics/fastcache"
 	"github.com/grid-chat/noise"
 	"github.com/grid-chat/noise/kademlia"
@@ -15,9 +16,9 @@ import (
 // is aware of particular messages that are being gossiped.
 // is aware of particular messages that are being gossiped.
 type Protocol struct {
+	eventemitter.EventEmitter
 	node    *noise.Node
 	overlay *kademlia.Protocol
-	events  Events
 
 	seen *fastcache.Cache
 }
@@ -48,6 +49,7 @@ func (p *Protocol) Protocol() noise.Protocol {
 
 // Bind registers a single message gossip.Message, and handles them by registering the (*Protocol).Handle Handler.
 func (p *Protocol) Bind(node *noise.Node) error {
+	p.EventEmitter = node.EventEmitter
 	p.node = node
 
 	node.RegisterMessage(Message{}, UnmarshalMessage)
@@ -114,12 +116,7 @@ func (p *Protocol) Handle(ctx noise.HandlerContext) error {
 	}
 
 	p.seen.Set(self, nil) // Mark that we already have this data.
-
-	if p.events.OnGossipReceived != nil {
-		if err := p.events.OnGossipReceived(ctx.ID(), msg); err != nil {
-			return err
-		}
-	}
+	p.EventEmitter.Emit("OnGossipRecived", ctx.ID(), msg)
 
 	p.Push(context.Background(), msg)
 

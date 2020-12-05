@@ -10,6 +10,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/CHH/eventemitter"
 	"github.com/oasisprotocol/ed25519"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
@@ -23,6 +24,7 @@ import (
 // the listener looking to accept new incoming peer connections, and workers responsible for handling incoming peer
 // messages. A node once closed or once started (as in, (*Node).Listen was called) should not be reused.
 type Node struct {
+	eventemitter.EventEmitter
 	logger *zap.Logger
 
 	host net.IP
@@ -70,7 +72,7 @@ func NewNode(opts ...NodeOption) (*Node, error) {
 		maxRecvMessageSize:     4 << 20,
 		numWorkers:             uint(runtime.NumCPU()),
 	}
-
+	n.EventEmitter.Init()
 	for _, opt := range opts {
 		opt(n)
 	}
@@ -416,27 +418,13 @@ func (n *Node) dialIfNotExists(ctx context.Context, addr string) (*Client, error
 		client.waitUntilClosed()
 
 		if errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded) {
-			for _, protocol := range n.protocols {
-				if protocol.OnPingFailed == nil {
-					continue
-				}
-
-				protocol.OnPingFailed(addr, err)
-			}
-
-			return nil, err
+			n.EventEmitter.Emit("OnPingFailed", addr, err)
 		}
 	}
 
 	err = fmt.Errorf("attempted to dial %s several times but failed: %w", addr, err)
 
-	for _, protocol := range n.protocols {
-		if protocol.OnPingFailed == nil {
-			continue
-		}
-
-		protocol.OnPingFailed(addr, err)
-	}
+	n.EventEmitter.Emit("OnPingFailed", addr, err)
 
 	return nil, err
 }

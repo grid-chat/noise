@@ -238,13 +238,7 @@ func (c *Client) outbound(ctx context.Context, addr string) {
 
 	c.Logger().Debug("Peer connection closed.")
 
-	for _, protocol := range c.node.protocols {
-		if protocol.OnPeerDisconnected == nil {
-			continue
-		}
-
-		protocol.OnPeerDisconnected(c)
-	}
+	c.node.EventEmitter.Emit("OnPeerDisconnected", c)
 }
 
 func (c *Client) inbound(conn net.Conn, addr string) {
@@ -271,13 +265,7 @@ func (c *Client) inbound(conn net.Conn, addr string) {
 	c.recvLoop()
 	c.close()
 
-	for _, protocol := range c.node.protocols {
-		if protocol.OnPeerDisconnected == nil {
-			continue
-		}
-
-		protocol.OnPeerDisconnected(c)
-	}
+	c.node.EventEmitter.Emit("OnPeerDisconnected", c)
 }
 
 func (c *Client) read() ([]byte, error) {
@@ -506,13 +494,7 @@ func (c *Client) handshake() {
 
 	c.Logger().Debug("Peer connection opened.")
 
-	for _, protocol := range c.node.protocols {
-		if protocol.OnPeerConnected == nil {
-			continue
-		}
-
-		protocol.OnPeerConnected(c)
-	}
+	c.node.EventEmitter.Emit("OnPeerConnected", c)
 }
 
 func (c *Client) recvLoop() {
@@ -547,14 +529,7 @@ func (c *Client) recvLoop() {
 		}
 
 		c.node.work <- HandlerContext{client: c, msg: msg}
-
-		for _, protocol := range c.node.protocols {
-			if protocol.OnMessageRecv == nil {
-				continue
-			}
-
-			protocol.OnMessageRecv(c)
-		}
+		c.node.EventEmitter.Emit("OnMessageRecv", c)
 	}
 }
 
@@ -641,13 +616,7 @@ Write:
 			break Write
 		}
 
-		for _, protocol := range c.node.protocols {
-			if protocol.OnMessageSent == nil {
-				continue
-			}
-
-			protocol.OnMessageSent(c)
-		}
+		c.node.EventEmitter.Emit("OnMessageSent", c)
 	}
 }
 

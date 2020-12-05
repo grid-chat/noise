@@ -27,21 +27,4 @@ type Protocol struct {
 	//
 	// Errors returned from implementations of Bind will propagate back up to (*Node).Listen as a returned error.
 	Bind func(node *Node) error
-
-	// OnPeerConnected is called when a node successfully receives an incoming peer/connects to an outgoing peer, and
-	// completes noise's protocol handshake.
-	OnPeerConnected func(client *Client)
-
-	// OnPeerDisconnected is called whenever any inbound/outbound connection that has successfully connected to a node
-	// has been terminated.
-	OnPeerDisconnected func(client *Client)
-
-	// OnPingFailed is called whenever any attempt by a node to dial a peer at addr fails.
-	OnPingFailed func(addr string, err error)
-
-	// OnMessageSent is called whenever bytes of a message or request or response have been flushed/sent to a peer.
-	OnMessageSent func(client *Client)
-
-	// OnMessageRecv is called whenever a message or response is received from a peer.
-	OnMessageRecv func(client *Client)
 }

@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/CHH/eventemitter"
 	"github.com/grid-chat/noise"
 	"go.uber.org/zap"
 )
@@ -22,11 +23,10 @@ var ErrBucketFull = errors.New("bucket is full")
 // S/Kademlia paper. It is expected that Protocol is bound to a noise.Node via (*noise.Node).Bind before the node
 // starts listening for incoming peers.
 type Protocol struct {
+	eventemitter.EventEmitter
 	node   *noise.Node
 	logger *zap.Logger
 	table  *Table
-
-	events Events
 
 	pingTimeout time.Duration
 }
@@ -92,13 +92,9 @@ func (p *Protocol) Ack(id noise.ID) {
 			}
 
 			if inserted {
-				if p.events.OnPeerAdmitted != nil {
-					p.events.OnPeerAdmitted(id)
-				}
+				p.EventEmitter.Emit("OnPeerAdmitted", id)
 			} else {
-				if p.events.OnPeerActivity != nil {
-					p.events.OnPeerActivity(id)
-				}
+				p.EventEmitter.Emit("OnPeerActivity", id)
 			}
 
 			return
@@ -117,10 +113,7 @@ func (p *Protocol) Ack(id noise.ID) {
 					zap.String("peer_addr", id.Address),
 					zap.Error(err),
 				)
-
-				if p.events.OnPeerEvicted != nil {
-					p.events.OnPeerEvicted(id)
-				}
+				p.EventEmitter.Emit("OnPeerEvicted", id)
 			}
 			continue
 		}
@@ -132,10 +125,7 @@ func (p *Protocol) Ack(id noise.ID) {
 					zap.String("peer_addr", id.Address),
 					zap.Error(err),
 				)
-
-				if p.events.OnPeerEvicted != nil {
-					p.events.OnPeerEvicted(id)
-				}
+				p.EventEmitter.Emit("OnPeerEvicted", id)
 			}
 			continue
 		}
@@ -144,10 +134,7 @@ func (p *Protocol) Ack(id noise.ID) {
 			zap.String("peer_id", id.String()),
 			zap.String("peer_addr", id.Address),
 		)
-
-		if p.events.OnPeerEvicted != nil {
-			p.events.OnPeerEvicted(id)
-		}
+		p.EventEmitter.Emit("OnPeerEvicted", id)
 
 		return
 	}
@@ -156,18 +143,21 @@ func (p *Protocol) Ack(id noise.ID) {
 // Protocol returns a noise.Protocol that may registered to a node via (*noise.Node).Bind.
 func (p *Protocol) Protocol() noise.Protocol {
 	return noise.Protocol{
-		Bind:            p.Bind,
-		OnPeerConnected: p.OnPeerConnected,
-		OnPingFailed:    p.OnPingFailed,
-		OnMessageSent:   p.OnMessageSent,
-		OnMessageRecv:   p.OnMessageRecv,
+		Bind: p.Bind,
 	}
 }
 
 // Bind registers messages Ping, Pong, FindNodeRequest, FindNodeResponse, and handles them by registering the
 // (*Protocol).Handle Handler.
 func (p *Protocol) Bind(node *noise.Node) error {
+	p.EventEmitter = node.EventEmitter
 	p.node = node
+
+	p.EventEmitter.On("OnPeerConnected", p.OnPeerConnected)
+	p.EventEmitter.On("OnPingFailed", p.OnPingFailed)
+	p.EventEmitter.On("OnMessageSent", p.OnMessageSent)
+	p.EventEmitter.On("OnMessageRecv", p.OnMessageRecv)
+
 	p.table = NewTable(p.node.ID())
 
 	if p.logger == nil {
@@ -195,9 +185,7 @@ func (p *Protocol) OnPingFailed(addr string, err error) {
 	if id, deleted := p.table.DeleteByAddress(addr); deleted {
 		p.logger.Debug("Peer was evicted from routing table by failing to be dialed.", zap.Error(err))
 
-		if p.events.OnPeerEvicted != nil {
-			p.events.OnPeerEvicted(id)
-		}
+		p.EventEmitter.Emit("OnPeerEvicted", id)
 	}
 }
 

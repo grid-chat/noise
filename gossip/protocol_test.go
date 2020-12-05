@@ -27,26 +27,20 @@ func TestGossip(t *testing.T) {
 		defer node.Close()
 
 		overlay := kademlia.New()
-		hub := gossip.New(overlay,
-			gossip.WithEvents(
-				gossip.Events{
-					OnGossipReceived: func(sender noise.ID, data []byte) error {
-						cond.L.Lock()
-						seen[node.ID().ID] = struct{}{}
-						cond.Signal()
-						cond.L.Unlock()
+		hub := gossip.New(overlay)
+		OnGossipReceived := func(sender noise.ID, data []byte) error {
+			cond.L.Lock()
+			seen[node.ID().ID] = struct{}{}
+			cond.Signal()
+			cond.L.Unlock()
 
-						return nil
-					},
-				},
-			),
-		)
-
+			return nil
+		}
 		node.Bind(
 			overlay.Protocol(),
 			hub.Protocol(),
 		)
-
+		node.On("OnGossipReceived", OnGossipReceived)
 		assert.NoError(t, node.Listen())
 
 		nodes = append(nodes, node)

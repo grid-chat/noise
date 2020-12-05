@@ -3,6 +3,7 @@ module github.com/grid-chat/noise
 go 1.15
 
 require (
+	github.com/CHH/eventemitter v0.0.0-20120807115904-3e42a20a6810
 	github.com/VictoriaMetrics/fastcache v1.5.7
 	github.com/allegro/bigcache v1.2.1 // indirect
 	github.com/golang/snappy v0.0.2 // indirect
