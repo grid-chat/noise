@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/oasisprotocol/ed25519"
 	"github.com/grid-chat/noise"
+	"github.com/oasisprotocol/ed25519"
 	"github.com/stretchr/testify/assert"
 )
 
