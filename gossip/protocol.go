@@ -13,6 +13,7 @@ import (
 
 // Protocol implements a simple gossiping protocol that avoids resending messages to peers that it already believes
 // is aware of particular messages that are being gossiped.
+// is aware of particular messages that are being gossiped.
 type Protocol struct {
 	node    *noise.Node
 	overlay *kademlia.Protocol
@@ -25,7 +26,7 @@ type Protocol struct {
 func New(overlay *kademlia.Protocol, opts ...Option) *Protocol {
 	p := &Protocol{
 		overlay: overlay,
-		seen:    fastcache.New(32 << 20),
+		seen:    fastcache.LoadFromFileOrNew("gossip.dat", 32<<20),
 	}
 
 	for _, opt := range opts {
