@@ -92,9 +92,9 @@ func (p *Protocol) Ack(id noise.ID) {
 			}
 
 			if inserted {
-				p.EventEmitter.Emit("OnPeerAdmitted", id)
+				p.Emit("OnPeerAdmitted", id)
 			} else {
-				p.EventEmitter.Emit("OnPeerActivity", id)
+				p.Emit("OnPeerActivity", id)
 			}
 
 			return
@@ -113,7 +113,7 @@ func (p *Protocol) Ack(id noise.ID) {
 					zap.String("peer_addr", id.Address),
 					zap.Error(err),
 				)
-				p.EventEmitter.Emit("OnPeerEvicted", id)
+				p.Emit("OnPeerEvicted", id)
 			}
 			continue
 		}
@@ -125,7 +125,7 @@ func (p *Protocol) Ack(id noise.ID) {
 					zap.String("peer_addr", id.Address),
 					zap.Error(err),
 				)
-				p.EventEmitter.Emit("OnPeerEvicted", id)
+				p.Emit("OnPeerEvicted", id)
 			}
 			continue
 		}
@@ -134,7 +134,7 @@ func (p *Protocol) Ack(id noise.ID) {
 			zap.String("peer_id", id.String()),
 			zap.String("peer_addr", id.Address),
 		)
-		p.EventEmitter.Emit("OnPeerEvicted", id)
+		p.Emit("OnPeerEvicted", id)
 
 		return
 	}
@@ -153,10 +153,10 @@ func (p *Protocol) Bind(node *noise.Node) error {
 	p.EventEmitter = node.EventEmitter
 	p.node = node
 
-	p.EventEmitter.On("OnPeerConnected", p.OnPeerConnected)
-	p.EventEmitter.On("OnPingFailed", p.OnPingFailed)
-	p.EventEmitter.On("OnMessageSent", p.OnMessageSent)
-	p.EventEmitter.On("OnMessageRecv", p.OnMessageRecv)
+	p.On("OnPeerConnected", p.OnPeerConnected)
+	p.On("OnPingFailed", p.OnPingFailed)
+	p.On("OnMessageSent", p.OnMessageSent)
+	p.On("OnMessageRecv", p.OnMessageRecv)
 
 	p.table = NewTable(p.node.ID())
 
@@ -185,7 +185,7 @@ func (p *Protocol) OnPingFailed(addr string, err error) {
 	if id, deleted := p.table.DeleteByAddress(addr); deleted {
 		p.logger.Debug("Peer was evicted from routing table by failing to be dialed.", zap.Error(err))
 
-		p.EventEmitter.Emit("OnPeerEvicted", id)
+		p.Emit("OnPeerEvicted", id)
 	}
 }
 

@@ -72,7 +72,7 @@ func NewNode(opts ...NodeOption) (*Node, error) {
 		maxRecvMessageSize:     4 << 20,
 		numWorkers:             uint(runtime.NumCPU()),
 	}
-	n.EventEmitter.Init()
+	n.Init()
 	for _, opt := range opts {
 		opt(n)
 	}
@@ -418,13 +418,13 @@ func (n *Node) dialIfNotExists(ctx context.Context, addr string) (*Client, error
 		client.waitUntilClosed()
 
 		if errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded) {
-			n.EventEmitter.Emit("OnPingFailed", addr, err)
+			n.Emit("OnPingFailed", addr, err)
 		}
 	}
 
 	err = fmt.Errorf("attempted to dial %s several times but failed: %w", addr, err)
 
-	n.EventEmitter.Emit("OnPingFailed", addr, err)
+	n.Emit("OnPingFailed", addr, err)
 
 	return nil, err
 }

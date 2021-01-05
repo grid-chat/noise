@@ -238,7 +238,7 @@ func (c *Client) outbound(ctx context.Context, addr string) {
 
 	c.Logger().Debug("Peer connection closed.")
 
-	c.node.EventEmitter.Emit("OnPeerDisconnected", c)
+	c.node.Emit("OnPeerDisconnected", c)
 }
 
 func (c *Client) inbound(conn net.Conn, addr string) {
@@ -265,7 +265,7 @@ func (c *Client) inbound(conn net.Conn, addr string) {
 	c.recvLoop()
 	c.close()
 
-	c.node.EventEmitter.Emit("OnPeerDisconnected", c)
+	c.node.Emit("OnPeerDisconnected", c)
 }
 
 func (c *Client) read() ([]byte, error) {
@@ -494,7 +494,7 @@ func (c *Client) handshake() {
 
 	c.Logger().Debug("Peer connection opened.")
 
-	c.node.EventEmitter.Emit("OnPeerConnected", c)
+	c.node.Emit("OnPeerConnected", c)
 }
 
 func (c *Client) recvLoop() {
@@ -529,7 +529,7 @@ func (c *Client) recvLoop() {
 		}
 
 		c.node.work <- HandlerContext{client: c, msg: msg}
-		c.node.EventEmitter.Emit("OnMessageRecv", c)
+		c.node.Emit("OnMessageRecv", c)
 	}
 }
 
@@ -616,7 +616,7 @@ Write:
 			break Write
 		}
 
-		c.node.EventEmitter.Emit("OnMessageSent", c)
+		c.node.Emit("OnMessageSent", c)
 	}
 }
 

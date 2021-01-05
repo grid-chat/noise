@@ -116,7 +116,7 @@ func (p *Protocol) Handle(ctx noise.HandlerContext) error {
 	}
 
 	p.seen.Set(self, nil) // Mark that we already have this data.
-	p.EventEmitter.Emit("OnGossipRecived", ctx.ID(), msg)
+	p.Emit("OnGossipRecived", ctx.ID(), msg)
 
 	p.Push(context.Background(), msg)
 
