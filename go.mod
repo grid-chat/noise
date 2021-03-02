@@ -8,14 +8,14 @@ require (
 	github.com/allegro/bigcache v1.2.1 // indirect
 	github.com/golang/snappy v0.0.2 // indirect
 	github.com/kr/text v0.2.0 // indirect
-	github.com/oasisprotocol/ed25519 v0.0.0-20201103162138-a1dadbe24dd5
+	github.com/oasisprotocol/ed25519 v0.0.0-20210201150809-58be049e4f78
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.6.1
+	github.com/stretchr/testify v1.6.1 // indirect
 	go.uber.org/atomic v1.7.0
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.16.0
-	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad
+	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
 	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 // indirect
 	golang.org/x/mod v0.4.0 // indirect
 	golang.org/x/tools v0.0.0-20210104081019-d8d6ddbec6ee // indirect
